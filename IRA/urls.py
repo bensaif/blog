@@ -1,30 +1,31 @@
-"""IRA URL Configuration
+"""Configuration des URLs pour l'application IRA
 
-The `urlpatterns` list routes URLs to views. For more information please see:
+La liste `urlpatterns` route les URLs vers des vues. Pour plus d'informations, voir :
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+Exemples :
+Vues basées sur des fonctions
+    1. Ajouter une importation :  from my_app import views
+    2. Ajouter une URL à urlpatterns :  path('', views.home, name='home')
+Vues basées sur des classes
+    1. Ajouter une importation :  from other_app.views import Home
+    2. Ajouter une URL à urlpatterns :  path('', Home.as_view(), name='home')
+Inclusion d'un autre URLconf
+    1. Importer la fonction include() : from django.urls import include, path
+    2. Ajouter une URL à urlpatterns :  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
 from django.urls import path
-from guesthouse.views import index,reservation,formulaire,login,hebergement,salle_heber,calendar
+from guesthouse import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('guesthouse/', index,name='index'),
-     path('guesthouse/index.html', index,name='index'),
-    path('guesthouse/reservation.html/', reservation,name='reservation'),
-     path('guesthouse/reservation.html/formulaire.html', formulaire,name='formulaire'),
-      path('guesthouse/login.html', login,name='login'),
-    path('guesthouse/reservation.html/hebergement.html', hebergement,name='hebergement'),
-    path('guesthouse/reservation.html/salle_heber.html', salle_heber,name='salle_heber'),
-     path('guesthouse/reservation.html/calendar.html', calendar,name='calendar'),
+    path('guesthouse/', views.index, name='index'),
+    path('guesthouse/index.html', views.index, name='index'),
+    path('guesthouse/reservation.html/', views.reservation, name='reservation'),
+    path('guesthouse/reservation.html/salle.html/', views.salle_form_view, name='salle_form'),
+    path('guesthouse/inscription.html/', views.inscription, name='inscription'),
+    path('guesthouse/connexion.html/', views.connexion, name='connexion'),
+    path('guesthouse/reservation.html/hebergement.html/', views.hebergement_form_view, name='hebergement'),
+    path('guesthouse/reservation.html/salle_heber.html/', views.salle_heber_form_view, name='salle_heber'),
+    path('guesthouse/calendar/', views.calendar, name='calendar'),
 ]

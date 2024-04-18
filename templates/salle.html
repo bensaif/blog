@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
+    {% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Réservation de Salle de Réunion</title>
-   
+    <link rel="icon" type="image/ico" href="{%static 'images/logo.ico' %}">
     <style>
         
     form {
@@ -120,7 +121,7 @@
 </div>
 {% endif %}
     <h1>Réservation de Salle de Réunion</h1>
-    <form action="{% url 'salle' %}" 
+    <form 
     method="post">
       {% csrf_token %}
 

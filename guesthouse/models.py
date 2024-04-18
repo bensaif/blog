@@ -1,64 +1,72 @@
 from django.db import models
 
-class salleForm(models.Model):
-    nom = models.CharField(max_length=100, label='Nom')
-    etablissement = models.CharField(max_length=100, label='Etablissement')
-    date_arrivee = models.DateField(label='Date au')
-    date_depart = models.DateField(label='Date du')
-    nom_salle_souhaite = models.CharField(max_length=100, label='Nom de la salle souhaite')
-    nombre_personnes = models.IntegerField(label='Nombre de personnes')
-    type_evenement = models.CharField(max_length=100, label='Type d\'evenement')
-    pause_cafe = models.IntegerField(label='Pause café')
-    dejeuner = models.IntegerField(label='Dejeuner')
-    diner = models.IntegerField(label='Diner')
-    nombre_courrier = models.IntegerField(label='Nombre de courrier')
-    Moyen = models.CharField(max_length=100, label='Moyen')
-    statue = models.CharField(max_length=100, label='Statue')
-    commentaire = models.CharField(widget=models.Textarea, required=False, label='Commentaire')
+from django.contrib.auth.models import AbstractUser
 
-class hebergementForm(models.Model):
-    nombre_courrier = models.IntegerField(label='Nombre de courrier')
-    etablissement = models.CharField(max_length=100, label='Etablissement')
-    demandeur = models.CharField(max_length=100, label='Demandeur')
-    capacité = models.IntegerField(label='Capacité')
-    date_arrivee = models.DateField(label='Date au')
-    date_depart = models.DateField(label='Date du')
-    chambre_disponible = models.CharField(max_length=100, label='Chambre disponible')
-    prise_charge = models.CharField(max_length=100, label='Prise en charge')
-    nombre_personnes = models.IntegerField(label='Nombre de personnes')
-    Moyen = models.sCharField(max_length=100, label='Moyen')
-    statue = models.CharField(max_length=100, label='Statue')
-    type = models.CharField(widget=models.Textarea, required=False, label='Type')
-    
-class salle_heberForm(models.Form):
-    nom = models.CharField(max_length=100, label='Nom')
-    etablissement = models.CharField(max_length=100, label='Etablissement')
-    date_arrivee = models.DateField(label='Date au')
-    date_depart = models.DateField(label='Date du')
-    nom_salle_souhaite = models.CharField(max_length=100, label='Nom de la salle souhaite')
-    nombre_personnes = models.IntegerField(label='Nombre de personnes')
-    type_evenement = models.CharField(max_length=100, label='Type d\'evenement')
-    pause_cafe = models.IntegerField(label='Pause café')
-    dejeuner = models.IntegerField(label='Dejeuner')
-    diner = models.IntegerField(label='Diner')
-    nombre_courrier = models.IntegerField(label='Nombre de courrier')
-    Moyen = models.CharField(max_length=100, label='Moyen')
-    statue = models.CharField(max_length=100, label='Statue')
-    commentaire = models.CharField(widget=models.Textarea, required=False, label='Commentaire')
-    nombre_courrier = models.IntegerField(label='Nombre de courrier')
-    etablissement = models.CharField(max_length=100, label='Etablissement')
-    demandeur = models.CharField(max_length=100, label='Demandeur')
-    capacité = models.IntegerField(label='Capacité')
-    date_arrivee = models.DateField(label='Date au')
-    date_depart = models.DateField(label='Date du')
-    chambre_disponible = models.CharField(max_length=100, label='Chambre disponible')
-    prise_charge = models.CharField(max_length=100, label='Prise en charge')
-    nombre_personnes = models.IntegerField(label='Nombre de personnes')
-    Moyen = models.CharField(max_length=100, label='Moyen')
-    statue = models.CharField(max_length=100, label='Statue')
-    type = models.CharField(widget=models.Textarea, required=False, label='Type')
 
-#class Event(models.Model):
- #   title = models.CharField(max_length=100)
- #   start_time = models.DateTimeField()
-  #  end_time = models.DateTimeField()
+
+
+
+class CustomUser(AbstractUser):
+    email = models.EmailField(unique=True)
+
+    def __str__(self):
+        return self.email
+
+# Import différé pour éviter les importations circulaires
+# Importez ce dont vous avez besoin uniquement lors de son utilisation
+
+class SalleForm(models.Model):
+    nom = models.CharField(max_length=100, verbose_name='Nom')
+    etablissement = models.CharField(max_length=100, verbose_name='Etablissement')
+    date_arrivee = models.DateField(verbose_name='Date au')
+    date_depart = models.DateField(verbose_name='Date du')
+    nom_salle_souhaite = models.CharField(max_length=100, verbose_name='Nom de la salle souhaitée')
+    nombre_personnes = models.IntegerField(verbose_name='Nombre de personnes')
+    type_evenement = models.CharField(max_length=100, verbose_name='Type d\'événement')
+    pause_cafe = models.IntegerField(verbose_name='Pause café')
+    dejeuner = models.IntegerField(verbose_name='Déjeuner')
+    diner = models.IntegerField(verbose_name='Dîner')
+    nombre_courrier = models.IntegerField(verbose_name='Nombre de courrier')
+    moyen = models.CharField(max_length=100, verbose_name='Moyen')
+    statue = models.CharField(max_length=100, verbose_name='Statut')
+    commentaire = models.CharField(max_length=255, blank=True, verbose_name='Commentaire')
+
+class HebergementForm(models.Model):
+    nombre_courrier = models.IntegerField(verbose_name='Nombre de courrier')
+    etablissement = models.CharField(max_length=100, verbose_name='Etablissement')
+    demandeur = models.CharField(max_length=100, verbose_name='Demandeur')
+    capacite = models.IntegerField(verbose_name='Capacité')
+    date_arrivee = models.DateField(verbose_name='Date au')
+    date_depart = models.DateField(verbose_name='Date du')
+    chambre_disponible = models.CharField(max_length=100, verbose_name='Chambre disponible')
+    prise_charge = models.CharField(max_length=100, verbose_name='Prise en charge')
+    nombre_personnes = models.IntegerField(verbose_name='Nombre de personnes')
+    moyen = models.CharField(max_length=100, verbose_name='Moyen')
+    statue = models.CharField(max_length=100, verbose_name='Statut')
+    type = models.TextField(blank=True, verbose_name='Type')
+
+class Salle_heberForm(models.Model):
+    nom = models.CharField(max_length=100, verbose_name='Nom')
+    etablissement = models.CharField(max_length=100, verbose_name='Etablissement')
+    date_arrivee = models.DateField(verbose_name='Date au')
+    date_depart = models.DateField(verbose_name='Date du')
+    nom_salle_souhaite = models.CharField(max_length=100, verbose_name='Nom de la salle souhaitée')
+    nombre_personnes = models.IntegerField(verbose_name='Nombre de personnes')
+    type_evenement = models.CharField(max_length=100, verbose_name='Type d\'événement')
+    pause_cafe = models.IntegerField(verbose_name='Pause café')
+    dejeuner = models.IntegerField(verbose_name='Déjeuner')
+    diner = models.IntegerField(verbose_name='Dîner')
+    nombre_courrier = models.IntegerField(verbose_name='Nombre de courrier')
+    moyen = models.CharField(max_length=100, verbose_name='Moyen')
+    statue = models.CharField(max_length=100, verbose_name='Statut')
+    commentaire = models.TextField(blank=True, verbose_name='Commentaire')
+
+
+class Event(models.Model):
+    nom = models.CharField(max_length=100, verbose_name='Nom de l\'événement')
+    date = models.DateField(verbose_name='Date de l\'événement')
+    lieu = models.CharField(max_length=100, verbose_name='Lieu de l\'événement', default='Emplacement inconnu')
+
+    def __str__(self):
+        return f"{self.nom} ({self.date}) - Lieu : {self.lieu}"
+
